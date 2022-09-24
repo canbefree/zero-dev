@@ -15,8 +15,11 @@ services:
     build:
       context: client
       target: development
+    command: sleep infinity
     secrets:
       - credential
+    depends_on:
+      - backend
     env_file:
       - .env
     networks: 
@@ -26,7 +29,6 @@ services:
     build:
       context: proxy
       target: development
-    command: sleep infinity
     networks: 
       - app_net
 

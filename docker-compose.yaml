@@ -1,18 +1,41 @@
 version: "3.7"
 services:
-  e1:
+  backend:
     build:
-      context: e1
-    command: sleep infinity
+      context: backend
+      # target: development
     secrets:
       - credential
     env_file:
       - .env
+    networks: 
+      - app_net
 
-  e2:
+  client:
     build:
-      context: e2 
-    command: sleep infinity
-    container_name: zero_client
+      context: client
+      # target: development
+    secrets:
+      - credential
+    depends_on:
+      - backend
     env_file:
       - .env
+    networks: 
+      - app_net
+
+  proxy:
+    build:
+      context: proxy
+      # target: development
+    command: sleep infinity
+    networks: 
+      - app_net
+
+secrets:
+  credential:
+    file: secrets/credential/test.tls
+
+networks:
+    app_net:
+        external: true
