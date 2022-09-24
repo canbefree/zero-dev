@@ -5,7 +5,8 @@ services:
       context: backend
       target: development
     secrets:
-      - credential
+      - app_crt
+      - app_key
     env_file:
       - .env
     networks: 
@@ -34,9 +35,14 @@ services:
       - app_net
 
 secrets:
-  credential:
-    file: secrets/credential/test.tls
-
+  app_crt:
+    file: secrets/credential/certs/web/app.crt
+  app_key:
+    file: secrets/credential/certs/web/app.key
+  root_pem:
+    file: secrets/credential/certs/local/boot.pem
+  root_key:
+    file: secrets/credential/certs/local/boot.key
 networks:
     app_net:
         external: true
