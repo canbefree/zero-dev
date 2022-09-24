@@ -25,6 +25,7 @@ services:
   proxy:
     build:
       context: proxy
+      target: development
     command: sleep infinity
     networks: 
       - app_net
