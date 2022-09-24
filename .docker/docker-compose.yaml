@@ -4,6 +4,10 @@ services:
     build:
       context: backend
       target: development
+      args:
+        - name=value
+    depends_on:
+      - proxy
     secrets:
       - credential
     env_file:
@@ -20,6 +24,7 @@ services:
       - credential
     depends_on:
       - backend
+      - proxy
     env_file:
       - .env
     networks: 
