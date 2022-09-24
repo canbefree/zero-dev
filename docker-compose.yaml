@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  e1:
+    build:
+      context: e1
+    command: sleep infinity
+    secrets:
+      - credential
+    env_file:
+      - .env
+
+  e2:
+    build:
+      context: e2 
+    command: sleep infinity
+    container_name: zero_client
+    env_file:
+      - .env

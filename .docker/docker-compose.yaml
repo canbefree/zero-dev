@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  backend:
+    build:
+      context: backend
+      target: development
+    secrets:
+      - credential
+    env_file:
+      - .env
+    networks: 
+      - app_net
+
+  client:
+    build:
+      context: client
+      target: development
+    secrets:
+      - credential
+    env_file:
+      - .env
+    networks: 
+      - app_net
+
+  proxy:
+    build:
+      context: proxy
+    command: sleep infinity
+    networks: 
+      - app_net
+
+secrets:
+  credential:
+    file: secrets/credential/test.tls
+
+networks:
+    app_net:
+        external: true
