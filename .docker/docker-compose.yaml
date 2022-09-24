@@ -6,6 +6,8 @@ services:
       target: development
     depends_on:
       - proxy
+    env_file:
+      - .env
     secrets:
       - credential
     networks: 
@@ -18,6 +20,8 @@ services:
     command: sleep infinity
     secrets:
       - credential
+    env_file:
+      - .env
     depends_on:
       - backend
       - proxy

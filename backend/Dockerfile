@@ -53,6 +53,8 @@ RUN go install -v golang.org/x/tools/gopls@latest \
 RUN git config --global user.name "${GIT_USERNAME}"
 RUN git config --global user.email "${GIT_EMAIL}"
 
+ENV HTTP_PROXY="http://proxy:3010"
+ENV HTTPS_PROXY="http://proxy:3010"
 
 CMD ["go", "run", "main.go"]
 

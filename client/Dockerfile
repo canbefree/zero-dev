@@ -40,10 +40,6 @@ RUN go build -o server .
 
 FROM build AS development
 
-
-RUN git config --global user.name "${GIT_USERNAME}"
-RUN git config --global user.email "${GIT_EMAIL}"
-
 RUN go install -v golang.org/x/tools/gopls@latest \
     && go install -v github.com/ramya-rao-a/go-outline@latest \
     && go install -v github.com/fatih/gomodifytags@latest  \
@@ -53,6 +49,11 @@ RUN go install -v golang.org/x/tools/gopls@latest \
     && go install -v github.com/go-delve/delve/cmd/dlv@latest \
     && go install -v github.com/davidrjenni/reftools/cmd/fillstruct@latest
 
+RUN git config --global user.name "${GIT_USERNAME}"
+RUN git config --global user.email "${GIT_EMAIL}"
+
+ENV HTTP_PROXY="http://proxy:3010"
+ENV HTTPS_PROXY="http://proxy:3010"
 
 CMD ["go", "run", "main.go"]
 
