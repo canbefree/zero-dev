@@ -54,10 +54,9 @@ RUN go install -v golang.org/x/tools/gopls@latest \
     && go install -v github.com/davidrjenni/reftools/cmd/fillstruct@latest
 
 
-
 CMD ["go", "run", "main.go"]
 
 FROM alpine:3.12
 EXPOSE 8000
 COPY --from=build /workspace/server /server
-CMD ["/server"]
+CMD ["/server222"]

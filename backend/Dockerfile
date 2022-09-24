@@ -35,7 +35,7 @@ COPY --from=stage_gen_go_gateway /go/bin/proto* /go/bin
 COPY --from=stage_download_google_apis /usr/local/include/google /usr/local/include/google
 
 COPY . .
-RUN go build -o server .
+RUN go build -o main .
 
 
 FROM build AS development
@@ -49,5 +49,5 @@ CMD ["go", "run", "main.go"]
 
 FROM alpine:3.12
 EXPOSE 8000
-COPY --from=build /workspace/server /server
-CMD ["/server"]
+COPY --from=build /workspace/main /main
+CMD ["/main"]
