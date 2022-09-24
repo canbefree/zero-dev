@@ -8,6 +8,7 @@ import (
 	"github.com/canbefree/tools/helper"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/org/repo/proto/pb_demo"
+	"github.com/org/repo/server"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -29,7 +30,7 @@ func main() {
 }
 
 func RegisterGrpc(s *grpc.Server) {
-	pb_demo.RegisterDemoServiceServer(s, pb_demo.UnimplementedDemoServiceServer{})
+	pb_demo.RegisterDemoServiceServer(s, server.NewDemoServer())
 }
 
 func RegisterGateway(mux *runtime.ServeMux) {

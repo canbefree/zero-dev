@@ -15,6 +15,8 @@ RUN go build -o server .
 
 FROM build AS development
 
+RUN go install github.com/josharian/impl@latest
+
 RUN git config --global user.name "${GIT_USERNAME}"
 RUN git config --global user.email "${GIT_EMAIL}"
 
