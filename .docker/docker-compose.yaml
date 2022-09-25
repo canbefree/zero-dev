@@ -9,7 +9,8 @@ services:
     env_file:
       - .env
     secrets:
-      - credential
+      - app_crt
+      - app_key
     networks: 
       - app_net
 
@@ -19,7 +20,8 @@ services:
       target: development
     command: sleep infinity
     secrets:
-      - credential
+      - app_crt
+      - app_key
     env_file:
       - .env
     depends_on:
@@ -36,8 +38,15 @@ services:
       - app_net
 
 secrets:
-  credential:
-    file: secrets/credential/test.tls
+  app_crt: 
+    file: secrets/certs/web/app.crt
+  app_key: 
+    file: secrets/certs/web/app.key
+  boot.key:
+    file: secrets/certs/local/boot.key
+  boot.pem:
+    file: secrets/certs/local/boot.pem
+
 
 networks:
     app_net:
