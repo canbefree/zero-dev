@@ -34,6 +34,13 @@ func main() {
 	go func() {
 		helper.PaincErr(s.Serve(l))
 	}()
+		
+	// 如果使用 tls 需要走 http2协议
+	// err = http.Serve(listener, h2c.NewHandler(
+    //     httpGrpcRouter(grpcServer, router, listener),
+    //     &http2.Server{})
+	// )
+	
 	mux := runtime.NewServeMux()
 	RegisterGateway(mux)
 	if tls_on() {
