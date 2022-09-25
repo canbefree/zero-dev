@@ -37,10 +37,10 @@ func main() {
 	mux := runtime.NewServeMux()
 	RegisterGateway(mux)
 	if tls_on() {
-		http.ListenAndServeTLS(":8082", certFile, keyFile, mux)
+		helper.PaincErr(http.ListenAndServeTLS(":8082", certFile, keyFile, mux))
 		return
 	}
-	http.ListenAndServe(":8082", mux)
+	helper.PaincErr(http.ListenAndServe(":8082", mux))
 }
 
 func RegisterGrpc(s *grpc.Server) {
