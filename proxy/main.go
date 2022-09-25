@@ -14,5 +14,7 @@ func main() {
 		fmt.Printf("request:%v", r.Body)
 		return r, nil
 	})
+	// var certFile, keyFile string
+	// certFile = "../"
 	http.ListenAndServe(":3010", proxy)
 }
