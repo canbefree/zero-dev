@@ -19,7 +19,3 @@ func main() {
 	helper.PaincErr(err)
 	fmt.Println(resp)
 }
-
-func testTls(){
-	tls.NewCredentials
-}
