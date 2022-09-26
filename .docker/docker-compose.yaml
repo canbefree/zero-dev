@@ -4,8 +4,6 @@ services:
     build:
       context: backend
       target: development
-    depends_on:
-      - proxy
     env_file:
       - .env
     secrets:
@@ -36,6 +34,9 @@ services:
       target: development
     networks: 
       - app_net
+    secrets:
+      - app_crt
+      - app_key
 
 secrets:
   app_crt: 
