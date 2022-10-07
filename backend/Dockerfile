@@ -45,6 +45,7 @@ COPY --from=stage_gen_go_gateway /go/bin/proto* /go/bin
 COPY --from=stage_download_google_apis /usr/local/include/google /usr/local/include/google
 
 COPY . .
+RUN go mod tidy
 RUN go build -o main .
 
 
