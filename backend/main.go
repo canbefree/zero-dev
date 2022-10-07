@@ -9,6 +9,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/org/repo/proto/pb_demo"
 	"github.com/org/repo/server"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
@@ -34,17 +36,17 @@ func main() {
 	go func() {
 		helper.PaincErr(s.Serve(l))
 	}()
-		
-	// 如果使用 tls 需要走 http2协议
-	// err = http.Serve(listener, h2c.NewHandler(
-    //     httpGrpcRouter(grpcServer, router, listener),
-    //     &http2.Server{})
-	// )
-	
+
 	mux := runtime.NewServeMux()
 	RegisterGateway(mux)
+
 	if tls_on() {
-		helper.PaincErr(http.ListenAndServeTLS(":8082", certFile, keyFile, mux))
+		// 如果使用 tls 需要走 http2协议
+		err = http.Serve(l, h2c.NewHandler(
+			mux,
+			&http2.Server{}),
+		)
+		// helper.PaincErr(http.ListenAndServeTLS(":8082", certFile, keyFile, mux))
 		return
 	}
 	helper.PaincErr(http.ListenAndServe(":8082", mux))
