@@ -43,7 +43,7 @@ RUN go mod download
 ENV CGO_ENABLED=0
 COPY --from=stage_download_protoc /usr/bin/protoc /usr/bin
 COPY --from=stage_gen_go_gateway /go/bin/proto* /go/bin
-# docker COPY 和 cp 有差异
+# docker COPY 和 cp 在拷贝目录的时候有差异
 COPY --from=stage_download_google_apis /usr/local/include/google /usr/local/include/google
 
 COPY . .
