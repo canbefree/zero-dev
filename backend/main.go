@@ -42,11 +42,13 @@ func main() {
 
 	if tls_on() {
 		// 如果使用 tls 需要走 http2协议
-		err = http.Serve(l, h2c.NewHandler(
+		ln, err := net.Listen("tcp", ":8082")
+		helper.PaincErr(err)
+		err = http.ServeTLS(ln, h2c.NewHandler(
 			mux,
 			&http2.Server{}),
+			certFile, keyFile,
 		)
-		// helper.PaincErr(http.ListenAndServeTLS(":8082", certFile, keyFile, mux))
 		return
 	}
 	helper.PaincErr(http.ListenAndServe(":8082", mux))
