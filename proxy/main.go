@@ -25,7 +25,7 @@ func main() {
 	if tls_on() {
 		proxy.Tr.ForceAttemptHTTP2 = true
 		// 如果使用 tls 需要走 http2协议
-		ln, err := net.Listen("tcp", ":3010")
+		ln, err := net.Listen("tcp", ":3012")
 		helper.PaincErr(err)
 		// http2.ConfigureServer()
 		srv := &http.Server{

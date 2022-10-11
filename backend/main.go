@@ -16,17 +16,23 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func main() {
-	var certFile = "/run/secrets/app_crt"
-	var keyFile = "/run/secrets/app_key"
+var certFile = "/run/secrets/app_crt"
+var keyFile = "/run/secrets/app_key"
 
+var GetTransportCredentials = func() credentials.TransportCredentials {
+	c, err := credentials.NewServerTLSFromFile(certFile, keyFile)
+	helper.PaincErr(err)
+	return c
+}
+
+var GetCred = func() []grpc.ServerOption {
 	var serverOpts []grpc.ServerOption
-	if tls_on() {
-		c, err := credentials.NewServerTLSFromFile(certFile, keyFile)
-		helper.PaincErr(err)
-		serverOpts = append(serverOpts, grpc.Creds(c))
-	}
+	serverOpts = append(serverOpts, grpc.Creds(GetTransportCredentials()))
+	return serverOpts
+}
 
+func main() {
+	var serverOpts []grpc.ServerOption = GetCred()
 	s := grpc.NewServer(serverOpts...)
 	defer s.GracefulStop()
 
@@ -49,6 +55,7 @@ func main() {
 			&http2.Server{}),
 			certFile, keyFile,
 		)
+		helper.PaincErr(err)
 		return
 	}
 	helper.PaincErr(http.ListenAndServe(":8082", mux))
@@ -60,7 +67,12 @@ func RegisterGrpc(s *grpc.Server) {
 
 func RegisterGateway(mux *runtime.ServeMux) {
 	ctx := context.TODO()
-	var dailOptions []grpc.DialOption = []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+	var dailOptions []grpc.DialOption
+	if tls_on() {
+		dailOptions = []grpc.DialOption{grpc.WithTransportCredentials(GetTransportCredentials())}
+	} else {
+		dailOptions = []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+	}
 	helper.PaincErr(pb_demo.RegisterDemoServiceHandlerFromEndpoint(ctx, mux, ":8081", dailOptions))
 }
 
