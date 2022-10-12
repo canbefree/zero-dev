@@ -11,19 +11,26 @@
             "mode": "debug",
             "program": "${file}",
             "env":{
-                "HTTPS_PROXY":"",
-                "HTTP_PROXY":""
             }
         },
         {
-            "name": "Launch Package",
+            "name": "Launch Package ",
             "type": "go",
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
             "env":{
-                "HTTPS_PROXY":"",
-                "HTTP_PROXY":""
+            }
+        },
+        {
+            "name": "Launch Package (proxy)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "env":{
+                "HTTPS_PROXY":"https://proxy:3012",
+                "HTTP_PROXY":"http://proxy:3010",
             }
         }
     ]

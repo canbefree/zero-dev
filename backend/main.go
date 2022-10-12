@@ -55,6 +55,7 @@ func main() {
 			&http2.Server{}),
 			certFile, keyFile,
 		)
+		// err = http.ServeTLS(ln, mux, certFile, keyFile)
 		helper.PaincErr(err)
 		return
 	}
@@ -69,6 +70,7 @@ func RegisterGateway(mux *runtime.ServeMux) {
 	ctx := context.TODO()
 	var dailOptions []grpc.DialOption
 	if tls_on() {
+		// dailOptions = []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 		dailOptions = []grpc.DialOption{grpc.WithTransportCredentials(GetTransportCredentials())}
 	} else {
 		dailOptions = []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
