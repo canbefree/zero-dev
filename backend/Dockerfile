@@ -19,8 +19,8 @@ RUN mv google /usr/local/include/
 
 FROM golang:1-bullseye AS build
 # ENV GOPROXY=https://goproxy.cn
-ARG GIT_USERNAME=canefree 
-ARG GIT_EMAIL=452198757@qq.com
+ENV GIT_USERNAME=example
+ENV GIT_EMAIL=example@mail.com
 
 
 WORKDIR /workspace
