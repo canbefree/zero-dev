@@ -1,5 +1,5 @@
 FROM golang:1-bullseye AS build
-ENV GOPROXY=https://goproxy.cn,direct
+# ENV GOPROXY=https://goproxy.cn,direct
 
 # 加速构建
 WORKDIR /workspace

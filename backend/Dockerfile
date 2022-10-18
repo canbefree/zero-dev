@@ -7,7 +7,7 @@ RUN /bin/bash install_proto.sh
 
 # proto-gen-go proto-gen-grpc 
 FROM golang:1-bullseye AS stage_gen_go_gateway
-ENV GOPROXY=https://goproxy.cn
+# ENV GOPROXY=https://goproxy.cn
 COPY .build/install_grpc_gateway.sh .
 RUN /bin/bash install_grpc_gateway.sh
 
@@ -18,7 +18,7 @@ RUN git clone  https://github.com/canbefree/google-apis.git google
 RUN mv google /usr/local/include/
 
 FROM golang:1-bullseye AS build
-ENV GOPROXY=https://goproxy.cn
+# ENV GOPROXY=https://goproxy.cn
 ARG GIT_USERNAME=canefree 
 ARG GIT_EMAIL=452198757@qq.com
 
