@@ -11,8 +11,8 @@ services:
       - app_key
     env_file:
       - .env
-    # networks: 
-    #   - app_net
+    networks: 
+      - app_net
 
   client:
     build:
@@ -27,8 +27,8 @@ services:
       # - backend
     env_file:
       - .env
-    # networks: 
-    #   - app_net
+    networks: 
+      - app_net
 
   proxy:
     build:
@@ -37,8 +37,8 @@ services:
       args:
         - GOPROXY=https://goproxy.cn
     command: sleep infinity
-    # networks: 
-    #   - app_net
+    networks: 
+      - app_net
 
 secrets:
   app_crt:
@@ -51,6 +51,6 @@ secrets:
     file: secrets/certs/local/boot.pem
 
 
-# networks:
-#     app_net:
-#         external: true
+networks:
+    app_net:
+        external: true
