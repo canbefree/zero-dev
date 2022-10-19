@@ -21,10 +21,9 @@ services:
       args:
         - GOPROXY=https://goproxy.cn
     secrets:
-      - credential
+      - app_crt
+      - app_key
     command: sleep infinity
-    # depends_on:
-      # - backend
     env_file:
       - .env
     networks: 
@@ -40,7 +39,6 @@ services:
     networks: 
       - app_net
 
-
 secrets:
   app_crt:
     file: secrets/certs/web/app.crt
@@ -50,6 +48,7 @@ secrets:
     file: secrets/certs/local/boot.key
   boot.pem:
     file: secrets/certs/local/boot.pem
+
 
 networks:
     app_net:

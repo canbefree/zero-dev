@@ -21,10 +21,9 @@ services:
       args:
         - GOPROXY=https://goproxy.cn
     secrets:
-      - credential
+      - app_crt
+      - app_key
     command: sleep infinity
-    # depends_on:
-      # - backend
     env_file:
       - .env
     networks: 
