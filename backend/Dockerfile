@@ -52,10 +52,8 @@ RUN go build -o main .
 FROM build AS development
 
 
-
-
-RUN git config --global user.name "${GIT_USERNAME}"
-RUN git config --global user.email "${GIT_EMAIL}"
+# RUN git config --global user.name "${GIT_USERNAME}"
+# RUN git config --global user.email "${GIT_EMAIL}"
 
 # ENV HTTP_PROXY="http://proxy:3010"
 # ENV HTTPS_PROXY="https://proxy:3012"
