@@ -4,6 +4,8 @@ services:
     build:
       context: backend
       target: development
+      args:
+        - GOPROXY=https://goproxy.cn
     secrets:
       - app_crt
       - app_key
@@ -15,7 +17,9 @@ services:
   client:
     build:
       context: client
-      # target: development
+      target: development
+      args:
+        - GOPROXY=https://goproxy.cn
     secrets:
       - credential
     command: sleep infinity
@@ -30,19 +34,23 @@ services:
     build:
       context: proxy
       target: development
+      args:
+        - GOPROXY=https://goproxy.cn
     command: sleep infinity
     networks: 
       - app_net
 
+
 secrets:
   app_crt:
-    file: secrets/credential/certs/web/app.crt
+    file: secrets/certs/web/app.crt
   app_key:
-    file: secrets/credential/certs/web/app.key
-  root_pem:
-    file: secrets/credential/certs/local/boot.pem
-  root_key:
-    file: secrets/credential/certs/local/boot.key
+    file: secrets/certs/web/app.key
+  boot.key:
+    file: secrets/certs/local/boot.key
+  boot.pem:
+    file: secrets/certs/local/boot.pem
+
 networks:
     app_net:
         external: true

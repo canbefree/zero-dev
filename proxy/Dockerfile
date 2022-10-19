@@ -1,5 +1,6 @@
 FROM golang:1-bullseye AS build
-# ENV GOPROXY=https://goproxy.cn,direct
+
+ARG GOPROXY
 
 # 加速构建
 WORKDIR /workspace
@@ -26,8 +27,8 @@ RUN go install -v golang.org/x/tools/gopls@latest \
     && go install -v github.com/go-delve/delve/cmd/dlv@latest \
     && go install -v github.com/davidrjenni/reftools/cmd/fillstruct@latest
 
-RUN git config --global user.name "${GIT_USERNAME}"
-RUN git config --global user.email "${GIT_EMAIL}"
+# RUN git config --global user.name "${GIT_USERNAME}"
+# RUN git config --global user.email "${GIT_EMAIL}"
 
 
 CMD ["go", "run", "main.go"]

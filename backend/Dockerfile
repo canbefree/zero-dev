@@ -18,10 +18,10 @@ RUN git clone  https://github.com/canbefree/google-apis.git google
 RUN mv google /usr/local/include/
 
 FROM golang:1-bullseye AS build
-# ENV GOPROXY=https://goproxy.cn
+
+ARG GOPROXY
 # ENV GIT_USERNAME=example
 # ENV GIT_EMAIL=example@mail.com
-
 
 WORKDIR /workspace
 

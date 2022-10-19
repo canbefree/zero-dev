@@ -4,11 +4,13 @@ services:
     build:
       context: backend
       target: development
-    env_file:
-      - .env
+      args:
+        - GOPROXY=https://goproxy.cn
     secrets:
       - app_crt
       - app_key
+    env_file:
+      - .env
     networks: 
       - app_net
 
@@ -16,15 +18,15 @@ services:
     build:
       context: client
       target: development
-    command: sleep infinity
+      args:
+        - GOPROXY=https://goproxy.cn
     secrets:
-      - app_crt
-      - app_key
+      - credential
+    command: sleep infinity
+    # depends_on:
+      # - backend
     env_file:
       - .env
-    depends_on:
-      - backend
-      - proxy
     networks: 
       - app_net
 
@@ -32,16 +34,16 @@ services:
     build:
       context: proxy
       target: development
+      args:
+        - GOPROXY=https://goproxy.cn
+    command: sleep infinity
     networks: 
       - app_net
-    secrets:
-      - app_crt
-      - app_key
 
 secrets:
-  app_crt: 
+  app_crt:
     file: secrets/certs/web/app.crt
-  app_key: 
+  app_key:
     file: secrets/certs/web/app.key
   boot.key:
     file: secrets/certs/local/boot.key

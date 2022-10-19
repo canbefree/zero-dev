@@ -18,9 +18,10 @@ RUN git clone  https://github.com/canbefree/google-apis.git google
 RUN mv google /usr/local/include/
 
 FROM golang:1-bullseye AS build
+ARG GOPROXY
 # ENV GOPROXY=https://goproxy.cn
-ARG GIT_USERNAME=example 
-ARG GIT_EMAIL=example@mail.com
+# ARG GIT_USERNAME=example 
+# ARG GIT_EMAIL=example@mail.com
 
 
 WORKDIR /workspace
@@ -52,8 +53,8 @@ RUN go build -o server .
 
 FROM build AS development
 
-RUN git config --global user.name "${GIT_USERNAME}"
-RUN git config --global user.email "${GIT_EMAIL}"
+# RUN git config --global user.name "${GIT_USERNAME}"
+# RUN git config --global user.email "${GIT_EMAIL}"
 
 # ENV HTTP_PROXY="http://proxy:3010"
 # ENV HTTPS_PROXY="https://proxy:3012"
