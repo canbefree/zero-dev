@@ -36,6 +36,9 @@ services:
       args:
         - GOPROXY=https://goproxy.cn
     command: sleep infinity
+    secrets:
+      - app_crt
+      - app_key
     networks: 
       - app_net
 
