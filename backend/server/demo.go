@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 
-	"github.com/org/repo/proto/pb_demo"
+	"github.com/org/bzero/proto/pb_demo"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

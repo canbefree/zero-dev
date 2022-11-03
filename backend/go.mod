@@ -1,4 +1,4 @@
-module github.com/org/repo
+module github.com/org/bzero
 
 go 1.13
 

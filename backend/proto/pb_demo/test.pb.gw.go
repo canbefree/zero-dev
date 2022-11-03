@@ -337,7 +337,7 @@ func RegisterDemoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/ListDemos", runtime.WithHTTPPathPattern("/v1alpha1/Demos"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/ListDemos", runtime.WithHTTPPathPattern("/demo/v1/Demos"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -362,7 +362,7 @@ func RegisterDemoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/GetDemo", runtime.WithHTTPPathPattern("/v1alpha1/{name=Demos/*}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/GetDemo", runtime.WithHTTPPathPattern("/demo/v1/{name=Demos/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -387,7 +387,7 @@ func RegisterDemoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/CreateDemo", runtime.WithHTTPPathPattern("/v1alpha1/Demos"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/CreateDemo", runtime.WithHTTPPathPattern("/demo/v1/Demos"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -412,7 +412,7 @@ func RegisterDemoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/UpdateDemo", runtime.WithHTTPPathPattern("/v1alpha1/{Demo.name=Demos/*}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/UpdateDemo", runtime.WithHTTPPathPattern("/demo/v1/{Demo.name=Demos/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -437,7 +437,7 @@ func RegisterDemoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/DeleteDemo", runtime.WithHTTPPathPattern("/v1alpha1/{name=Demos/*}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/demo.v1.DemoService/DeleteDemo", runtime.WithHTTPPathPattern("/demo/v1/{name=Demos/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -501,7 +501,7 @@ func RegisterDemoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/ListDemos", runtime.WithHTTPPathPattern("/v1alpha1/Demos"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/ListDemos", runtime.WithHTTPPathPattern("/demo/v1/Demos"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -523,7 +523,7 @@ func RegisterDemoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/GetDemo", runtime.WithHTTPPathPattern("/v1alpha1/{name=Demos/*}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/GetDemo", runtime.WithHTTPPathPattern("/demo/v1/{name=Demos/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -545,7 +545,7 @@ func RegisterDemoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/CreateDemo", runtime.WithHTTPPathPattern("/v1alpha1/Demos"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/CreateDemo", runtime.WithHTTPPathPattern("/demo/v1/Demos"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -567,7 +567,7 @@ func RegisterDemoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/UpdateDemo", runtime.WithHTTPPathPattern("/v1alpha1/{Demo.name=Demos/*}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/UpdateDemo", runtime.WithHTTPPathPattern("/demo/v1/{Demo.name=Demos/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -589,7 +589,7 @@ func RegisterDemoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/DeleteDemo", runtime.WithHTTPPathPattern("/v1alpha1/{name=Demos/*}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/demo.v1.DemoService/DeleteDemo", runtime.WithHTTPPathPattern("/demo/v1/{name=Demos/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -609,15 +609,15 @@ func RegisterDemoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_DemoService_ListDemos_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1alpha1", "Demos"}, ""))
+	pattern_DemoService_ListDemos_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"demo", "v1", "Demos"}, ""))
 
-	pattern_DemoService_GetDemo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2}, []string{"v1alpha1", "Demos", "name"}, ""))
+	pattern_DemoService_GetDemo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 2, 5, 3}, []string{"demo", "v1", "Demos", "name"}, ""))
 
-	pattern_DemoService_CreateDemo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1alpha1", "Demos"}, ""))
+	pattern_DemoService_CreateDemo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"demo", "v1", "Demos"}, ""))
 
-	pattern_DemoService_UpdateDemo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2}, []string{"v1alpha1", "Demos", "Demo.name"}, ""))
+	pattern_DemoService_UpdateDemo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 2, 5, 3}, []string{"demo", "v1", "Demos", "Demo.name"}, ""))
 
-	pattern_DemoService_DeleteDemo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2}, []string{"v1alpha1", "Demos", "name"}, ""))
+	pattern_DemoService_DeleteDemo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 2, 5, 3}, []string{"demo", "v1", "Demos", "name"}, ""))
 )
 
 var (

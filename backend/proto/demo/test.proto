@@ -13,33 +13,33 @@ import "google/api/annotations.proto";
 service DemoService {
   rpc ListDemos(ListDemosRequest) returns (ListDemosResponse) {
     option (google.api.http) = {
-      get: "/v1alpha1/Demos"
+      get: "/demo/v1/Demos"
     };
   }
 
   rpc GetDemo(GetDemoRequest) returns (Demo) {
     option (google.api.http) = {
-      get: "/v1alpha1/{name=Demos/*}"
+      get: "/demo/v1/{name=Demos/*}"
     };
   }
 
   rpc CreateDemo(CreateDemoRequest) returns (Demo) {
     option (google.api.http) = {
-      post: "/v1alpha1/Demos"
+      post: "/demo/v1/Demos"
       body: "Demo"
     };
   }
 
   rpc UpdateDemo(UpdateDemoRequest) returns (Demo) {
     option (google.api.http) = {
-      patch: "/v1alpha1/{Demo.name=Demos/*}"
+      patch: "/demo/v1/{Demo.name=Demos/*}"
       body: "Demo"
     };
   }
 
   rpc DeleteDemo(DeleteDemoRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1alpha1/{name=Demos/*}"
+      delete: "/demo/v1/{name=Demos/*}"
     };
   }
 }

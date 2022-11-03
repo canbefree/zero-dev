@@ -7,8 +7,8 @@ import (
 
 	"github.com/canbefree/tools/helper"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"github.com/org/repo/proto/pb_demo"
-	"github.com/org/repo/server"
+	"github.com/org/bzero/proto/pb_demo"
+	"github.com/org/bzero/server"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
