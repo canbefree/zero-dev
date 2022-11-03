@@ -7,77 +7,81 @@ import (
 
 	"github.com/canbefree/tools/helper"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"github.com/org/bzero/proto/pb_demo"
-	"github.com/org/bzero/server"
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
+	"github.com/org/bzero/setup"
+	"github.com/org/bzero/utils"
+	"github.com/org/bzero/vars"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-var certFile = "/run/secrets/app_crt"
-var keyFile = "/run/secrets/app_key"
-
-var GetTransportCredentials = func() credentials.TransportCredentials {
-	c, err := credentials.NewServerTLSFromFile(certFile, keyFile)
-	helper.PaincErr(err)
-	return c
-}
-
-var GetCred = func() []grpc.ServerOption {
-	var serverOpts []grpc.ServerOption
-	serverOpts = append(serverOpts, grpc.Creds(GetTransportCredentials()))
-	return serverOpts
-}
-
 func main() {
-	var serverOpts []grpc.ServerOption = GetCred()
-	s := grpc.NewServer(serverOpts...)
-	defer s.GracefulStop()
 
-	RegisterGrpc(s)
-	l, err := net.Listen("tcp", ":8081")
-	helper.PaincErr(err)
+	serverOpts := GetServerOpts()
+
 	go func() {
+		l, err := net.Listen("tcp", getGRPCEndpoint())
+		helper.PaincErr(err)
+		s := grpc.NewServer(serverOpts...)
+		defer s.GracefulStop()
+
+		// 开启grpc客户端
+		setup.RegisterGrpc(s)
 		helper.PaincErr(s.Serve(l))
 	}()
 
+	// 开启 gateway http 客户端
 	mux := runtime.NewServeMux()
-	RegisterGateway(mux)
+	ctx := context.Background()
 
-	if tls_on() {
-		// 如果使用 tls 需要走 http2协议
-		ln, err := net.Listen("tcp", ":8082")
-		helper.PaincErr(err)
-		err = http.ServeTLS(ln, h2c.NewHandler(
-			mux,
-			&http2.Server{}),
-			certFile, keyFile,
-		)
-		// err = http.ServeTLS(ln, mux, certFile, keyFile)
-		helper.PaincErr(err)
-		return
+	grpcDialOptions := getGrpcDialOptions()
+
+	conn, err := grpc.Dial(getGRPCEndpoint(), grpcDialOptions...)
+	helper.PaincErr(err)
+	setup.RegisterGateway(ctx, conn, mux)
+	helper.PaincErr(Listen(mux))
+
+}
+
+func Listen(mux *runtime.ServeMux) error {
+	if vars.HTTP_TLS_ON {
+		return http.ListenAndServeTLS(getHttpGateWayEndpoint(), vars.CERTFILE, vars.KEYFILE, mux)
 	}
-	helper.PaincErr(http.ListenAndServe(":8082", mux))
+	return http.ListenAndServe(getHttpGateWayEndpoint(), mux)
 }
 
-func RegisterGrpc(s *grpc.Server) {
-	pb_demo.RegisterDemoServiceServer(s, server.NewDemoServer())
-}
-
-func RegisterGateway(mux *runtime.ServeMux) {
-	ctx := context.TODO()
-	var dailOptions []grpc.DialOption
-	if tls_on() {
-		// dailOptions = []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-		dailOptions = []grpc.DialOption{grpc.WithTransportCredentials(GetTransportCredentials())}
+func getGrpcDialOptions() []grpc.DialOption {
+	var grpcDialOptions []grpc.DialOption
+	if vars.GRPC_TLS_ON {
+		cred, err := credentials.NewClientTLSFromFile(vars.CERTFILE, "")
+		helper.PaincErr(err)
+		grpcDialOptions = append(grpcDialOptions, grpc.WithTransportCredentials(cred))
 	} else {
-		dailOptions = []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+		grpcDialOptions = append(grpcDialOptions, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	}
-	helper.PaincErr(pb_demo.RegisterDemoServiceHandlerFromEndpoint(ctx, mux, ":8081", dailOptions))
+	return grpcDialOptions
 }
 
-func tls_on() bool {
-	return true
+func GetServerOpts() []grpc.ServerOption {
+	var serverOpts []grpc.ServerOption
+	if vars.GRPC_TLS_ON {
+		serverOpts = utils.GetCred()
+	} else {
+		serverOpts = utils.GetInsecureCred()
+	}
+	return serverOpts
+}
+
+func getGRPCEndpoint() string {
+	if vars.GRPC_TLS_ON {
+		return ":" + vars.PORT_GRPC_TLS
+	}
+	return ":" + vars.PORT_GRPC
+}
+
+func getHttpGateWayEndpoint() string {
+	if vars.HTTP_TLS_ON {
+		return ":" + vars.PORT_GATEWAY_HTTP_TLS
+	}
+	return ":" + vars.PORT_GATEWAY_HTTP
 }

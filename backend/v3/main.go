@@ -49,6 +49,9 @@ type GRPCServerIFace interface {
 	StartServer() error
 }
 
+type GRPCServer struct {
+}
+
 type GatewayServerIFace interface {
 	SetClientDialOpts()
 	SetEndPoint()
